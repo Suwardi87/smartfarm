@@ -1,0 +1,258 @@
+basePath: /api
+definitions:
+  petani.Petani:
+    properties:
+      address:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  petani.PetaniRequest:
+    properties:
+      address:
+        example: Padang Panjang
+        type: string
+      name:
+        example: Suwardi
+        type: string
+    type: object
+  user.LoginRequest:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: suwardi
+        type: string
+    type: object
+  user.RegisterRequest:
+    properties:
+      level:
+        example: admin
+        type: string
+      nama_lengkap:
+        example: Suwardi
+        type: string
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: suwardi
+        type: string
+    type: object
+  user.User:
+    properties:
+      id:
+        type: string
+      level:
+        description: 'contoh: petani, nagari, dinas'
+        type: string
+      nama_lengkap:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8083
+info:
+  contact:
+    email: suwardi87@gmail.com
+    name: Suwardi Developer
+  description: API dokumentasi untuk sistem SmartFarm berbasis Fiber + GORM
+  title: SmartFarm API
+  version: "1.0"
+paths:
+  /admin/petani:
+    get:
+      description: Menampilkan seluruh data petani
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/petani.Petani'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Mendapatkan semua petani
+      tags:
+      - Petani
+    post:
+      consumes:
+      - application/json
+      description: Menyimpan data petani ke database
+      parameters:
+      - description: Data Petani
+        in: body
+        name: petani
+        required: true
+        schema:
+          $ref: '#/definitions/petani.PetaniRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/petani.Petani'
+      security:
+      - BearerAuth: []
+      summary: Menambahkan petani baru
+      tags:
+      - Petani
+  /admin/petani/{id}:
+    delete:
+      description: Menghapus data petani berdasarkan ID
+      parameters:
+      - description: ID Petani
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Menghapus data petani
+      tags:
+      - Petani
+    get:
+      description: Mengambil data petani tertentu berdasarkan ID
+      parameters:
+      - description: ID Petani
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/petani.Petani'
+      security:
+      - BearerAuth: []
+      summary: Menampilkan detail petani berdasarkan ID
+      tags:
+      - Petani
+    put:
+      consumes:
+      - application/json
+      description: Mengupdate nama dan alamat petani
+      parameters:
+      - description: ID Petani
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data Petani
+        in: body
+        name: petani
+        required: true
+        schema:
+          $ref: '#/definitions/petani.PetaniRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/petani.Petani'
+      security:
+      - BearerAuth: []
+      summary: Memperbarui data petani
+      tags:
+      - Petani
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login menggunakan username dan password
+      parameters:
+      - description: username & password
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login user
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Mendaftarkan user baru dengan hashing password
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register user baru
+      tags:
+      - Auth
+  /auth/users:
+    get:
+      description: Menampilkan seluruh data user dari database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.User'
+            type: array
+      summary: Mendapatkan semua user
+      tags:
+      - User
+securityDefinitions:
+  BearerAuth:
+    description: 'Masukkan format: Bearer {token}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
