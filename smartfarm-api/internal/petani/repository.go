@@ -2,6 +2,12 @@ package petani
 
 import "smartfarm-api/pkg/database"
 
+type petaniRepository struct{}
+
+func NewPetaniRepository() PetaniRepository {
+	return &petaniRepository{}
+}
+
 type PetaniRepository interface {
 	Create(petani *Petani) error
 	FindAll() ([]Petani, error)
@@ -12,11 +18,6 @@ type PetaniRepository interface {
 	FindPaginated(page, limit int) ([]Petani, int64, error)
 }
 
-type petaniRepository struct{}
-
-func NewPetaniRepository() PetaniRepository {
-	return &petaniRepository{}
-}
 
 func (r *petaniRepository) Create(petani *Petani) error {
 	return database.DB.Create(&petani).Error

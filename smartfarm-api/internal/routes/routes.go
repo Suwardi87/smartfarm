@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"smartfarm-api/internal/middleware"
 	"smartfarm-api/internal/petani"
+	"smartfarm-api/internal/lahan"
 	"smartfarm-api/internal/user"
 )
 
@@ -32,14 +33,27 @@ func RegisterRoutes(app *fiber.App) {
 	petaniRepo := petani.NewPetaniRepository()
     petaniService := petani.NewPetaniService(petaniRepo) // ✅ return interface
 	petaniHandler := petani.NewPetaniHandler(petaniService)
+		// =============================
+	// 🧱 ADMIN / LAHAN MODULE
+	// =============================
+	lahanRepo := lahan.NewLahanRepository()
+    lahanService := lahan.NewLahanService(lahanRepo) // ✅ return interface
+	lahanHandler := lahan.NewLahanHandler(lahanService)
 
 	// ✅ Route lengkap
 	admin := api.Group("/admin")
+	// petani routes
 	admin.Get("/petani", petaniHandler.GetAllPetani)
 	admin.Post("/petani", petaniHandler.CreatePetani)
 	admin.Get("/petani/:id", petaniHandler.GetPetaniByID)
 	admin.Put("/petani/:id", petaniHandler.UpdatePetani)
 	admin.Delete("/petani/:id", petaniHandler.DeletePetani)
+	// lahan routes
+	admin.Get("/petani", lahanHandler.GetAllLahan)
+	// admin.Post("/petani", lahanHandler.CreateLahan)
+	// admin.Get("/petani/:id", lahanHandler.GetLahanByID)
+	// admin.Put("/petani/:id", lahanHandler.UpdateLahan)
+	// admin.Delete("/petani/:id", lahanHandler.DeleteLahan)
 
 	// =============================
 	// 🧱 PROTECTED ROUTES (JWT)

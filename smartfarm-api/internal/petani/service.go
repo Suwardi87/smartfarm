@@ -2,6 +2,15 @@ package petani
 
 import "errors"
 
+// 🔧 Implementasi Service
+type petaniService struct {
+	repo PetaniRepository
+}
+
+func NewPetaniService(repo PetaniRepository) PetaniService {
+	return &petaniService{repo: repo}
+}
+
 // 🧱 Interface: definisi kontrak layanan
 type PetaniService interface {
 	CreatePetani(req CreatePetaniRequest) (*PetaniResponse, error)
@@ -14,14 +23,6 @@ type PetaniService interface {
 	DeletePetani(id uint) error
 }
 
-// 🔧 Implementasi Service
-type petaniService struct {
-	repo PetaniRepository
-}
-
-func NewPetaniService(repo PetaniRepository) PetaniService {
-	return &petaniService{repo: repo}
-}
 
 // ✅ Create Petani
 func (s *petaniService) CreatePetani(req CreatePetaniRequest) (*PetaniResponse, error) {
