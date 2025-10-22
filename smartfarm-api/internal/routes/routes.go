@@ -38,7 +38,7 @@ func RegisterRoutes(app *fiber.App) {
 	// =============================
 	lahanRepo := lahan.NewLahanRepository()
     lahanService := lahan.NewLahanService(lahanRepo) // ✅ return interface
-	lahanHandler := lahan.NewLahanHandler(lahanService)
+	lahanHandler := lahan.NewLahanHandler(*lahanService)
 
 	// ✅ Route lengkap
 	admin := api.Group("/admin")
@@ -49,7 +49,7 @@ func RegisterRoutes(app *fiber.App) {
 	admin.Put("/petani/:id", petaniHandler.UpdatePetani)
 	admin.Delete("/petani/:id", petaniHandler.DeletePetani)
 	// lahan routes
-	admin.Get("/petani", lahanHandler.GetAllLahan)
+	admin.Get("/lahan", lahanHandler.GetAllLahan)
 	// admin.Post("/petani", lahanHandler.CreateLahan)
 	// admin.Get("/petani/:id", lahanHandler.GetLahanByID)
 	// admin.Put("/petani/:id", lahanHandler.UpdateLahan)

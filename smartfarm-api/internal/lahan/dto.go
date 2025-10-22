@@ -27,9 +27,10 @@ type UpdateLahanRequest struct {
 type LahanResponse struct {
 	ID          uint      `json:"id"`
 	PetaniID    uint      `json:"petani_id"`
+	NamaPetani  string    `json:"nama_petani"` // ✅ ditambahkan agar mapping tidak error
 	NamaLahan   string    `json:"nama_lahan"`
 	Lokasi      string    `json:"lokasi"`
-	Luas        float64  `json:"luas"`
+	Luas        float64   `json:"luas"`
 	JenisTanah  string    `json:"jenis_tanah"`
 	Koordinat   string    `json:"koordinat"`
 	CreatedAt   time.Time `json:"created_at"`

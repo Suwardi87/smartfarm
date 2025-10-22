@@ -6,13 +6,14 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	
-	"github.com/gofiber/swagger"                  // ✅ Swagger handler
 
+	"github.com/gofiber/swagger" // ✅ Swagger handler
+
+	"smartfarm-api/internal/lahan"
 	"smartfarm-api/internal/middleware"
+	"smartfarm-api/internal/petani"
 	"smartfarm-api/internal/routes"
 	"smartfarm-api/internal/user"
-	"smartfarm-api/internal/petani"
 	"smartfarm-api/pkg/database"
 
 	_ "smartfarm-api/internal/docs" // ✅ Hasil dari `swag init`
@@ -35,7 +36,7 @@ func main() {
 	database.Connect()
 
 	// === 2️⃣ Migrasi model ===
-	if err := database.DB.AutoMigrate(&user.User{}, &petani.Petani{}); err != nil {
+	if err := database.DB.AutoMigrate(&user.User{}, &petani.Petani{}, &lahan.Lahan{}); err != nil {
 		log.Fatal("❌ Gagal migrasi:", err)
 	}
 	log.Println("✅ Migrasi user sukses")
