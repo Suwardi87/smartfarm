@@ -26,8 +26,8 @@ func NewPetaniService(repo PetaniRepository) PetaniService {
 // ✅ Create Petani
 func (s *petaniService) CreatePetani(req CreatePetaniRequest) (*PetaniResponse, error) {
 	petani := Petani{
-		Name:    req.Name,
-		Address: req.Address,
+		Nama:    req.Nama,
+		Alamat: req.Alamat,
 	}
 
 	if err := s.repo.Create(&petani); err != nil {
@@ -36,8 +36,8 @@ func (s *petaniService) CreatePetani(req CreatePetaniRequest) (*PetaniResponse, 
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:   petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}
@@ -57,8 +57,8 @@ func (s *petaniService) GetAllPetani() ([]PetaniResponse, error) {
 	for _, p := range petanis {
 		responses = append(responses, PetaniResponse{
 			ID:        p.ID,
-			Name:      p.Name,
-			Address:   p.Address,
+			Nama:      p.Nama,
+			Alamat:    p.Alamat,
 			CreatedAt: p.CreatedAt,
 			UpdatedAt: p.UpdatedAt,
 		})
@@ -75,8 +75,8 @@ func (s *petaniService) GetPetaniByID(id uint) (*PetaniResponse, error) {
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:    petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}
@@ -95,8 +95,8 @@ func (s *petaniService) GetAllPetaniPaginated(page, limit int) ([]PetaniResponse
     for _, p := range petanis {
         responses = append(responses, PetaniResponse{
             ID:        p.ID,
-            Name:      p.Name,
-            Address:   p.Address,
+            Nama:      p.Nama,
+            Alamat:   p.Alamat,
             CreatedAt: p.CreatedAt,
             UpdatedAt: p.UpdatedAt,
         })
@@ -114,8 +114,8 @@ func (s *petaniService) UpdatePetani(id uint, req UpdatePetaniRequest) (*PetaniR
 		return nil, errors.New("petani tidak ditemukan")
 	}
 
-	petani.Name = req.Name
-	petani.Address = req.Address
+	petani.Nama = req.Nama
+	petani.Alamat = req.Alamat
 
 	if err := s.repo.Update(petani); err != nil {
 		return nil, err
@@ -123,8 +123,8 @@ func (s *petaniService) UpdatePetani(id uint, req UpdatePetaniRequest) (*PetaniR
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:    petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}

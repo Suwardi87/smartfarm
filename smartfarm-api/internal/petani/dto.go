@@ -7,13 +7,13 @@ import "time"
 // Digunakan untuk input dari client (misalnya dari body JSON POST/PUT).
 //
 type CreatePetaniRequest struct {
-	Name    string `json:"name" validate:"required,min=3"`
-	Address string `json:"address" validate:"required,min=5"`
+	Nama    string `json:"nama" validate:"required,min=3"`
+	Alamat string `json:"alamat" validate:"required,min=5"`
 }
 
 type UpdatePetaniRequest struct {
-	Name    string `json:"name" validate:"required,min=3"`
-	Address string `json:"address" validate:"required,min=5"`
+	Nama    string `json:"nama" validate:"required,min=3"`
+	Alamat string `json:"alamat" validate:"required,min=5"`
 }
 
 //
@@ -22,8 +22,8 @@ type UpdatePetaniRequest struct {
 //
 type PetaniResponse struct {
 	ID        uint      `json:"id"`
-	Name      string    `json:"name"`
-	Address   string    `json:"address"`
+	Nama      string    `json:"nama"`
+	Alamat   string    `json:"alamat"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

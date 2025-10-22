@@ -41,8 +41,8 @@ func (h *PetaniHandler) CreatePetani(c *fiber.Ctx) error {
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:   petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}
@@ -99,8 +99,8 @@ func (h *PetaniHandler) GetPetaniByID(c *fiber.Ctx) error {
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:   petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}
@@ -133,8 +133,8 @@ func (h *PetaniHandler) UpdatePetani(c *fiber.Ctx) error {
 
 	resp := PetaniResponse{
 		ID:        petani.ID,
-		Name:      petani.Name,
-		Address:   petani.Address,
+		Nama:      petani.Nama,
+		Alamat:   petani.Alamat,
 		CreatedAt: petani.CreatedAt,
 		UpdatedAt: petani.UpdatedAt,
 	}
