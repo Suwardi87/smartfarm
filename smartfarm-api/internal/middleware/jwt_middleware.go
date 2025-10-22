@@ -33,7 +33,7 @@ func GenerateJWT(userID, username, level string) (string, error) {
 	return token.SignedString(jwtSecret)
 }
 
-// ✅ Middleware untuk verifikasi token
+// ✅ Middleware untuk verifikasi tokenn
 func JWTProtected() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
